@@ -2,17 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../styles/navbar.css";
+import Logo from "../assets/Bite.png";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg custom-navbar">
-      {/* <nav class="navbar navbar-expand-lg bg-body-tertiary"> */}
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          Navbar
-        </a>
+    // <nav className="navbar navbar-expand-lg custom-navbar">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+      <div className="container-fluid">
+         {/* Logo */}
+        <Link className="navbar-brand" to="/">
+          <img className="navbar-logo" src={Logo} alt="Biterush Logo" />
+        </Link>
+
+         {/* navbar toggler */}
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -20,68 +24,88 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Link
-              </a>
-            </li>
-            <li class="nav-item dropdown">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
+                Other
               </a>
-              <ul class="dropdown-menu">
+              <ul className="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
+                  <Link className="dropdown-item nav-link" to="/contact">items</Link>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
+                  <Link className="dropdown-item nav-link" to="/contact">items</Link>
                 </li>
                 <li>
-                  <hr class="dropdown-divider"></hr>
+                  <hr className="dropdown-divider"></hr>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
+                  <Link className="dropdown-item nav-link" to="/contact">items</Link>
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">
+            {/* <li className="nav-item">
+              <a className="nav-link disabled" aria-disabled="true">
                 Disabled
               </a>
-            </li>
+            </li> */}
           </ul>
-          <form class="d-flex" role="search">
+
+          {/* Search form */}
+          <form className="d-flex" role="search">
             <input
-              class="form-control me-2"
+              className="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               Search
             </button>
           </form>
+
+
+          <ul className="navbar-nav  mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="about">
+                About
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Offers
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="about">
+                Help
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="about">
+                Cart
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       {/* </nav> */}
