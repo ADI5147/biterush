@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -45,6 +46,13 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'allauth',
     'allauth.account',
+=======
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+
+>>>>>>> 6fc78058a02bd4345c266938a577958059799607
 ]
 
 SITE_ID = 1
@@ -131,3 +139,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# rest freamework settiong 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}

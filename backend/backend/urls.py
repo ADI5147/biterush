@@ -19,6 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('api/auth/', include('dj_rest_auth.urls')),  # login/logout/password endpoints
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),  # registration endpoint
+=======
+    path('api/', include('api.urls')), 
+>>>>>>> 6fc78058a02bd4345c266938a577958059799607
 ]
+
