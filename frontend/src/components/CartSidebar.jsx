@@ -46,6 +46,7 @@ function CartSidebar({ open, onClose, cart }) {
             </div>
           ))
         )}
+        
       </div>
       <div style={{ padding: 24, borderTop: "1px solid #eee", background: "#fff" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>

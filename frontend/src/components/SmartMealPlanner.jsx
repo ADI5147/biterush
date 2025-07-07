@@ -49,26 +49,27 @@ function SmartMealPlanner({ open, onClose, userId }) {
   };
 
   const handleRegenerate = async () => {
-    setLoading(true);
-    setChat(c => [
-      ...c,
-      { type: "user", text: "Regenerate plan with: " + selectedDiets.map(d => dietOptions.find(opt => opt.value === d).label).join(", ") }
-    ]);
-    try {
-      const res = await fetch("/api/meal-planner", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, dietPreferences: selectedDiets })
-      });
-      if (!res.ok) throw new Error("Failed to fetch meal plan");
-      const data = await res.json();
-      setMealPlan(data.plan); // assuming API returns { plan: [...] }
-      setChat(c => [...c, { type: "bot", text: "Here's your updated weekly meal plan!" }]);
-    } catch {
-      setChat(c => [...c, { type: "bot", text: "Sorry, something went wrong. Please try again." }]);
-    }
-    setLoading(false);
-  };
+  setLoading(true);
+  setChat(c => [
+    ...c,
+    { type: "user", text: "Regenerate plan with: " + selectedDiets.map(d => dietOptions.find(opt => opt.value === d).label).join(", ") }
+  ]);
+  try {
+    // Change this to your backend endpoint
+    const res = await fetch("http://localhost:8000/api/meal-planner/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, dietPreferences: selectedDiets })
+    });
+    if (!res.ok) throw new Error("Failed to fetch meal plan");
+    const data = await res.json();
+    setMealPlan(data.plan); // assuming API returns { plan: [...] }
+    setChat(c => [...c, { type: "bot", text: "Here's your updated weekly meal plan!" }]);
+  } catch {
+    setChat(c => [...c, { type: "bot", text: "Sorry, something went wrong. Please try again." }]);
+  }
+  setLoading(false);
+};
 
   if (!open) return null;
 

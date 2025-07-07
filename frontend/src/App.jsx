@@ -1,46 +1,44 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import HomePage from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Logout from "./pages/Logout";
 import CategoryPage from "./pages/CategoryPage";
 import Chatbot from "./components/Chatbot";
 import CartSidebar from "./components/CartSidebar";
 import OffersModal from "./components/OffersModal";
 import FilterModal from "./components/FilterModal";
-import LoginModal from "./components/LoginModal";
 import SmartMealPlanner from "./components/SmartMealPlanner";
 import { appData } from "./data/appData";
 import Header from "./components/Header";
 import AIFeatures from "./components/AIFeatures";
 
-
-// function HomePage({
-//   onCartClick,
-//   onLoginClick,
-//   user,
-//   onOrderNow,
-//   onFilterClick,
-//   handleOffersClick,
-// }) {
-//   return (
-//     <div style={{ maxWidth: 1200, margin: "0 auto", padding: 32 }}>
-//       <Header onCartClick={onCartClick} onLoginClick={onLoginClick} user={user} />
-//       <div style={{ margin: "32px 0" }}>
-//         <AIFeatures features={appData.aiFeatures} onOffersClick={handleOffersClick} />
-//       </div>
-//       <Categories categories={appData.categories} />
-//       <Recommendations
-//         restaurants={appData.restaurants.slice(0, 5)}
-//         onOrderNow={onOrderNow}
-//       />
-//       <RestaurantGrid
-//         restaurants={appData.restaurants}
-//         onOrderNow={onOrderNow}
-//         onFilterClick={onFilterClick}
-//       />
-//       <CategoryNav categories={appData.categories} />
-//     </div>
-//   );
-// }
+function AppRoutes({ user, setUser, cart, setCart, handleOrderNow, setCartOpen, setFilterOpen, setOffersOpen }) {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HomePage
+            onCartClick={() => setCartOpen(true)}
+            onLoginClick={() => window.location.href = "/login"}
+            onSignupClick={() => window.location.href = "/signup"}
+            user={user}
+            onOrderNow={handleOrderNow}
+            onFilterClick={() => setFilterOpen(true)}
+            handleOffersClick={() => setOffersOpen(true)}
+          />
+        }
+      />
+      <Route path="/category/:category" element={<CategoryPage />} />
+      <Route path="/login" element={<Login setUser={setUser} />} />
+      <Route path="/signup" element={<Signup setUser={setUser} />} />
+      <Route path="/logout" element={<Logout setUser={setUser} />} />
+      {/* Add more routes as needed */}
+    </Routes>
+  );
+}
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -50,14 +48,16 @@ function App() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [addedItem, setAddedItem] = useState(null);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("authToken");
+    return token ? { username: "user" } : null;
+  });
   const [mealPlannerOpen, setMealPlannerOpen] = useState(false);
 
   // Add to cart logic with login enforcement
   const handleOrderNow = (restaurant) => {
     if (!user) {
-      setLoginOpen(true);
+      window.location.href = "/login";
       return;
     }
     setCart((prev) => {
@@ -86,7 +86,6 @@ function App() {
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} cart={cart} />
       <OffersModal open={offersOpen} onClose={() => setOffersOpen(false)} offers={appData.offers} />
       <FilterModal open={filterOpen} onClose={() => setFilterOpen(false)} />
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} onLogin={setUser} />
 
       {/* Floating Smart Meal Planner button */}
       <button
@@ -154,23 +153,16 @@ function App() {
         </div>
       )}
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              onCartClick={() => setCartOpen(true)}
-              onLoginClick={() => setLoginOpen(true)}
-              user={user}
-              onOrderNow={handleOrderNow}
-              onFilterClick={() => setFilterOpen(true)}
-              handleOffersClick={() => setOffersOpen(true)}
-            />
-          }
-        />
-        <Route path="/category/:category" element={<CategoryPage />} />
-        {/* Add more routes as needed */}
-      </Routes>
+      <AppRoutes
+        user={user}
+        setUser={setUser}
+        cart={cart}
+        setCart={setCart}
+        handleOrderNow={handleOrderNow}
+        setCartOpen={setCartOpen}
+        setFilterOpen={setFilterOpen}
+        setOffersOpen={setOffersOpen}
+      />
     </BrowserRouter>
   );
 }
