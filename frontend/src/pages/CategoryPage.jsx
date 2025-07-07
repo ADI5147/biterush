@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { categoryData } from "./categoryData";
+import { categoryData } from "../data/categoryData";
 
 function CategoryPage() {
   const { category } = useParams();

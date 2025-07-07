@@ -64,7 +64,7 @@ function SmartMealPlanner({ open, onClose, userId }) {
       const data = await res.json();
       setMealPlan(data.plan); // assuming API returns { plan: [...] }
       setChat(c => [...c, { type: "bot", text: "Here's your updated weekly meal plan!" }]);
-    } catch (err) {
+    } catch {
       setChat(c => [...c, { type: "bot", text: "Sorry, something went wrong. Please try again." }]);
     }
     setLoading(false);

@@ -1,50 +1,46 @@
-// File: App.jsx
-
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Header";
-import AIFeatures from "./AIFeatures";
-import Categories from "./Categories";
-import Recommendations from "./Recommendations";
-import RestaurantGrid from "./RestaurantGrid";
-import CategoryNav from "./CategoryNav";
-import Chatbot from "./Chatbot";
-import CartSidebar from "./CartSidebar";
-import OffersModal from "./OffersModal";
-import FilterModal from "./FilterModal";
-import LoginModal from "./LoginModal";
-import SmartMealPlanner from "./SmartMealPlanner";
-import CategoryPage from "./CategoryPage";
-import { appData } from "./appData";
+import HomePage from "./pages/Home";
+import CategoryPage from "./pages/CategoryPage";
+import Chatbot from "./components/Chatbot";
+import CartSidebar from "./components/CartSidebar";
+import OffersModal from "./components/OffersModal";
+import FilterModal from "./components/FilterModal";
+import LoginModal from "./components/LoginModal";
+import SmartMealPlanner from "./components/SmartMealPlanner";
+import { appData } from "./data/appData";
+import Header from "./components/Header";
+import AIFeatures from "./components/AIFeatures";
 
-function HomePage({
-  onCartClick,
-  onLoginClick,
-  user,
-  onOrderNow,
-  onFilterClick,
-  handleOffersClick,
-}) {
-  return (
-    <div style={{ maxWidth: 1200, margin: "0 auto", padding: 32 }}>
-      <Header onCartClick={onCartClick} onLoginClick={onLoginClick} user={user} />
-      <div style={{ margin: "32px 0" }}>
-        <AIFeatures features={appData.aiFeatures} onOffersClick={handleOffersClick} />
-      </div>
-      <Categories categories={appData.categories} />
-      <Recommendations
-        restaurants={appData.restaurants.slice(0, 5)}
-        onOrderNow={onOrderNow}
-      />
-      <RestaurantGrid
-        restaurants={appData.restaurants}
-        onOrderNow={onOrderNow}
-        onFilterClick={onFilterClick}
-      />
-      <CategoryNav categories={appData.categories} />
-    </div>
-  );
-}
+
+// function HomePage({
+//   onCartClick,
+//   onLoginClick,
+//   user,
+//   onOrderNow,
+//   onFilterClick,
+//   handleOffersClick,
+// }) {
+//   return (
+//     <div style={{ maxWidth: 1200, margin: "0 auto", padding: 32 }}>
+//       <Header onCartClick={onCartClick} onLoginClick={onLoginClick} user={user} />
+//       <div style={{ margin: "32px 0" }}>
+//         <AIFeatures features={appData.aiFeatures} onOffersClick={handleOffersClick} />
+//       </div>
+//       <Categories categories={appData.categories} />
+//       <Recommendations
+//         restaurants={appData.restaurants.slice(0, 5)}
+//         onOrderNow={onOrderNow}
+//       />
+//       <RestaurantGrid
+//         restaurants={appData.restaurants}
+//         onOrderNow={onOrderNow}
+//         onFilterClick={onFilterClick}
+//       />
+//       <CategoryNav categories={appData.categories} />
+//     </div>
+//   );
+// }
 
 function App() {
   const [cart, setCart] = useState([]);
